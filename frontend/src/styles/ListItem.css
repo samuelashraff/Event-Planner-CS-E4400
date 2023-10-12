@@ -1,0 +1,6 @@
+.list-item {
+    padding-bottom: 10%;
+    display: flex;
+    flex-direction: row;
+}
+
