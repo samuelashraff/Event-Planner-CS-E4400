@@ -1,4 +1,4 @@
-import '../ListItem.css'
+import '../styles/ListItem.css'
 import {doc, deleteDoc} from "firebase/firestore"
 import {db} from '../firebase'
 
@@ -17,9 +17,9 @@ export function ListItem({name, id, location}) {
     return(
         <div className="list-item">
             <div className="sub-item">
-                <li>Name: {name}</li>
-                <li>ID: {id}</li>
-                <li>Location: {location}</li>
+                <li key={id}>Name: {name}</li>
+                <li key={id}>ID: {id}</li>
+                <li key={id}>Location: {location}</li>
             </div>
             <div className="sub-item">
                 <button
