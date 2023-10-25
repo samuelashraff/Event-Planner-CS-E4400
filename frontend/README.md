@@ -6,6 +6,9 @@ This application also uses firebase, in order for you to use firebase, create a 
 
 ## Available Scripts
 
+First, navigate to the project directory by running:
+### `cd ./frontend`
+
 In the project directory, you can run:
 
 ### `npm start`

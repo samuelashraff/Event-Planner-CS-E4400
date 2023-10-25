@@ -1,34 +1,17 @@
 import '../styles/ListItem.css'
-import {doc, deleteDoc} from "firebase/firestore"
-import {db} from '../firebase'
+import { doc, deleteDoc } from "firebase/firestore"
+import { db } from '../firebase'
+import { Button, Card } from '@mui/material'
 
-export function ListItem({name, id, location}) {
+export function ListItem({ event }) {
 
-    const deleteEvent = async (e) => {
-        e.preventDefault()
-        try {
-            await deleteDoc(doc(db, "events", id))
-        }
-        catch (e) {
-            console.error("Something went wrong when deleting the document")
-        }
-    }
 
-    return(
-        <div className="list-item">
-            <div className="sub-item">
-                <li key={id}>Name: {name}</li>
-                <li key={id}>ID: {id}</li>
-                <li key={id}>Location: {location}</li>
+    return (
+        <Card sx={{ minWidth: 300, marginBottom: "10%", display: "flex", alignItems: "flex-start", flexDirection: "row", justifyContent: "baseline" }}>
+            <div className="list-item">
+                <li>Name: {event.name}</li>
+                <li>Location: {event.location}</li>
             </div>
-            <div className="sub-item">
-                <button
-                type="submit"
-                onClick={deleteEvent}
-                >
-                    Delete
-                </button>
-            </div>
-        </div>
-        )
+        </Card>
+    )
 }

@@ -13,6 +13,9 @@ function Navbar () {
       <div className="container">
         <div className="nav-elements">
           <ul>
+          <li className="title">
+              Event Planner
+          </li>
             {user !== null ?
             <li>User: {user.email}</li> : 
             <li>No user signed in</li>}
