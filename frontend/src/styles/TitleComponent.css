@@ -1,0 +1,26 @@
+.title-container {
+    position: relative;
+    text-align: center;
+}
+
+.overlay {
+    position: absolute;
+    top: 65%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+}
+
+.overlay-title {
+    font-size: 3em;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.image {
+    width: 70%;
+    height: 50%;
+    align-self: center;
+    margin-bottom: 5%;
+    z-index: 1;
+}
