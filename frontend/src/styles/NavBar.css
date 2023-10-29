@@ -4,6 +4,7 @@
   min-width: 100%;
   display: flex;
   flex-direction: row;
+  align-items: flex-start;
   justify-content: space-evenly;
   border-bottom: 1px solid rgb(228, 213, 213);
 }
@@ -35,4 +36,5 @@
 
 .title {
   align-self: flex-start;
+  color: white;
 }
