@@ -10,7 +10,7 @@ export function DashBoard() {
     return (
         <div className="dashboard">
             <Navbar />
-            <EventList />
+            <h1>Hello World</h1>
         </div>
     )
 }

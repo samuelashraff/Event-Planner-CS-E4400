@@ -1,0 +1,10 @@
+
+
+.card-list {
+    display: flex;
+    flex-direction: row;
+}
+
+.card {
+    margin-right: 1%;
+}

@@ -4,9 +4,9 @@ import Button from '@mui/material/Button'
 import { ListItem } from './ListItem'
 import { auth, db } from '../firebase'
 import { addDoc, collection, doc, where, query } from 'firebase/firestore'
-import { useCollectionData, useCollection } from 'react-firebase-hooks/firestore'
+import { useCollectionData } from 'react-firebase-hooks/firestore'
 import { useAuthState } from 'react-firebase-hooks/auth'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 
 

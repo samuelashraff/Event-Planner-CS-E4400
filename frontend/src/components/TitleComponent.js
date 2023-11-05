@@ -12,7 +12,7 @@ export function TitleComponent() {
                 <div className="overlay">
                     <h1 className="overlay-title">Event Planner</h1>
                 </div>
-                <img src={TitleImage} className="image" />
+                <img src={TitleImage} className="image" alt="Title Image"/>
             </div>
         </>
     )
