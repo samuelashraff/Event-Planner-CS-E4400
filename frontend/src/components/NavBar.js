@@ -1,20 +1,21 @@
 import { logOut, auth, db } from '../firebase'
-import { useAuthState } from 'react-firebase-hooks/auth'
 import '../styles/NavBar.css'
-import { collection, doc, where, query, getDocs } from 'firebase/firestore'
+import { collection, doc, where, query } from 'firebase/firestore'
 import { useCollectionData } from 'react-firebase-hooks/firestore'
 import { Button } from '@mui/material'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { CreateEventModal } from './CreateEventModal'
 
 function Navbar() {
-  const [user, loading, error] = useAuthState(auth)
+  // const [user, loading, error] = useAuthState(auth)
   const [isModalOpen, setIsModalOpen] = useState(false)
-  const [data, setData] = useState([])
+  // const [data, setData] = useState([])
 
   const currentUserRef = doc(db, "users", auth.currentUser.uid)
+  console.log(currentUserRef.id)
   const eventsQuery = query(collection(db, "events"), where("userRef", "==", currentUserRef))
   const [events] = useCollectionData(eventsQuery)
+  console.log(events)
 
   // async function fetchEvents() {
   //   await getDocs(collection(db, "events"))

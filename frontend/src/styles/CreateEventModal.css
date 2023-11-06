@@ -22,7 +22,6 @@
 .tag-list {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
 }
 
 .tag-element {
@@ -31,7 +30,7 @@
     border: 1px solid white;
     color: black;
     text-align: center;
-    margin-right: 10px;
+    margin-right: 2%;
     padding: 5px;
     cursor: pointer;
 }

@@ -5,7 +5,7 @@ import { auth, db } from "../firebase";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { modalStyle } from "../styles/styles";
 import { useState } from "react";
-import { VenueList } from "./VenueList";
+import { Venues } from "./Venues";
 
 export function CreateEventModal({ isModalOpen, setIsModalOpen }) {
 
@@ -32,9 +32,6 @@ export function CreateEventModal({ isModalOpen, setIsModalOpen }) {
         const subTagsData = subTagDocs.map(doc => doc.data())
         setSubTags(subTagsData)
     }
-
-    
-
 
     return (
         <Modal
@@ -106,7 +103,7 @@ export function CreateEventModal({ isModalOpen, setIsModalOpen }) {
                 )}
                 {selectedSubTag && (
                     <Box className="venue-list">
-                        <VenueList labels={selectedSubTag.filter_labels} eventDate={eventDate}/>
+                        <Venues labels={selectedSubTag.filter_labels} eventDate={eventDate} mainTagName={mainTag.name}/>
                     </Box>
                 )}
                 <Button variant="contained" onClick={() => setIsModalOpen(false)}>Close</Button>
