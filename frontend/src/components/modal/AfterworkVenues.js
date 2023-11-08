@@ -4,7 +4,7 @@ import { collection, getDoc, getDocs, query, where } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { db } from "../../firebase";
 
-export function AfterworkVenues({labels, eventDate}) {
+export function AfterworkVenues({ labels, eventDate }) {
     const [venues, setVenues] = useState({})
 
     // Helper functions
@@ -70,11 +70,16 @@ export function AfterworkVenues({labels, eventDate}) {
                     <div className="card-list" key={label}>
                         <p>{label}</p>
                         {venues[label]?.map((venue) => (
-                            <Card className="card" key={venue.id}>
-                                <CardContent>
-                                    {venue.name}
-                                </CardContent>
-                            </Card>
+                            <div className="card-box">
+                                <Card className="card" key={venue.id}>
+                                    <CardContent>
+                                        {venue.name}
+                                    </CardContent>
+                                </Card>
+                                <div className="card-location">
+                                    {venue.location}
+                                </div>
+                            </div>
                         ))}
                     </div>
                 ))}
