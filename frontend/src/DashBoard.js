@@ -1,8 +1,7 @@
 import { EventList } from "./components/EventList";
 import Navbar from "./components/NavBar";
 import "./styles/Dashboard.css"
-import TasksList from "./components/TasksList";
-import test from "./components/test";
+import TasksList from "./components/TasksList":
 
 
 export function DashBoard() {
@@ -12,7 +11,6 @@ export function DashBoard() {
             <Navbar />
             <h1>Hello World! This is Team SAS!!!</h1>
             <TasksList />
-            <test />
         </div>
     )
 }
