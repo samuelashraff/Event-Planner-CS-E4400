@@ -1,12 +1,11 @@
 import { Stack } from '@mui/material'
 import TextField from '@mui/material/TextField'
 import Button from '@mui/material/Button'
-import { ListItem } from './ListItem'
 import { auth, db } from '../firebase'
 import { addDoc, collection, doc, where, query } from 'firebase/firestore'
-import { useCollectionData, useCollection } from 'react-firebase-hooks/firestore'
+import { useCollectionData } from 'react-firebase-hooks/firestore'
 import { useAuthState } from 'react-firebase-hooks/auth'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 
 
@@ -43,16 +42,6 @@ export function EventList() {
         }
     }
 
-    const ListOfEvents = () => {
-        return (
-            <ul>
-                {events && events.map((event) => {
-                    return <ListItem event={event} />
-                })}
-            </ul>
-        )
-    }
-
 
     return (
         <div className="main-page">
@@ -78,7 +67,6 @@ export function EventList() {
                 </Stack>
             </div>
             <h2>Events:</h2>
-            <ListOfEvents />
         </div>
     )
 }

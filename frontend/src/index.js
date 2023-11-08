@@ -4,6 +4,8 @@ import './index.css';
 import App from './App';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import {Register} from './Register'
+import "@fontsource/maven-pro"
+
 
 const router = createBrowserRouter([
   {
