@@ -7,6 +7,7 @@ import Button from '@mui/material/Button'
 import { Stack } from '@mui/material'
 import GoogleIcon from "./assets/Google Icon.png"
 import { TitleComponent } from './components/TitleComponent'
+import { loginInputStyles } from './styles/styles'
 
 
 export function Login() {
@@ -20,25 +21,7 @@ export function Login() {
     setPassword("")
   }
 
-  const customInputStyles = {
-    root: {
-      '& .MuiInputBase-root': {
-        color: 'white', // Change the text color to white
-      },
-      '& .MuiInputLabel-root': {
-        color: 'white', // Change the label color to white
-      },
-      '& .MuiOutlinedInput-notchedOutline': {
-        borderColor: 'white', // Change the outline color to white
-      },
-      '&:hover .MuiOutlinedInput-notchedOutline': {
-        borderColor: 'white', // Change the outline color on hover to white
-      },
-      '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-        borderColor: 'white', // Change the outline color when focused to white
-      },
-    },
-  }
+  
 
   return (
     <div className="login">
@@ -59,14 +42,14 @@ export function Login() {
             type="text"
             placeholder="Email"
             value={email}
-            sx={customInputStyles.root}
+            sx={loginInputStyles.root}
             onChange={(e) => setEmail(e.target.value)}
           />
           <TextField
             type="password"
             placeholder="Password"
             value={password}
-            sx={customInputStyles.root}
+            sx={loginInputStyles.root}
             onChange={(e) => setPassword(e.target.value)}
           />
           <Button

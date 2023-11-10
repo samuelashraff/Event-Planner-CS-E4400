@@ -10,6 +10,8 @@ import { EducationVenues } from "./modal/EducationVenues"
 // Fetching will be done in each component separately, but this should be refactored
 // to avoid code repetition
 
+// Seems that some of these event types don't require these labels (sub tags), but some do.
+
 export function Venues({ labels, eventDate, mainTagName }) {
 
     if (mainTagName === "Afterwork") {
