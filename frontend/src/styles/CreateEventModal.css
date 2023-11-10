@@ -1,6 +1,8 @@
 .event-modal {
     min-width: 80%;
+    min-height: 100vh;
 }
+
 
 .first-row-element {
     display: flex;
@@ -53,12 +55,17 @@
     border-radius: 10px;
     border: 1px solid white;
     color: black;
+    min-width: 8%;
     text-align: center;
-    margin-right: 10px;
+    margin-right: 2%;
     padding: 5px;
     cursor: pointer;
 }
 
 .subTag-element.selected {
     background-color: #FFAE64;
+}
+
+.venue-list {
+    margin-bottom: 1%;
 }

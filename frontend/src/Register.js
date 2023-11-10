@@ -9,6 +9,7 @@ import "./styles/Register.css"
 import { FormControl, InputLabel, MenuItem, Select, Stack, TextField } from "@mui/material"
 import Button from "@mui/material/Button"
 import { TitleComponent } from "./components/TitleComponent"
+import { loginInputStyles, registerButtonStyles } from "./styles/styles"
 
 
 export function Register() {
@@ -33,38 +34,7 @@ export function Register() {
     setAccountType(event.target.value)
   }
 
-  const customInputStyles = {
-    root: {
-      '& .MuiInputBase-root': {
-        color: 'white', // Change the text color to white
-      },
-      '& .MuiInputLabel-root': {
-        color: 'white', // Change the label color to white
-      },
-      '& .MuiOutlinedInput-notchedOutline': {
-        borderColor: 'white', // Change the outline color to white
-      },
-      '&:hover .MuiOutlinedInput-notchedOutline': {
-        borderColor: 'white', // Change the outline color on hover to white
-      },
-      '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-        borderColor: 'white', // Change the outline color when focused to white
-      },
-    },
-  }
-
-  const customButtonStyles = {
-    root: {
-      color: 'white',      // Set text color to white
-      backgroundColor: '#1976d2', // Set background color to white
-      '&:hover': {
-        backgroundColor: 'white', // Set background color on hover to white
-      },
-    },
-    label: {
-      color: 'black',      // Set text color to black
-    },
-  }
+  
 
   const customStyles = {
     formControl: {
@@ -113,21 +83,21 @@ export function Register() {
             value={name}
             onChange={(e) => setName(e.target.value)}
             placeholder="Full Name"
-            sx={customInputStyles.root}
+            sx={loginInputStyles.root}
           />
           <TextField
             type="text"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="E-mail Address"
-            sx={customInputStyles.root}
+            sx={loginInputStyles.root}
           />
           <TextField
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Password"
-            sx={customInputStyles.root}
+            sx={loginInputStyles.root}
           />
           <FormControl sx={customStyles.formControl}>
             <InputLabel sx={customStyles.inputLabel}>
@@ -149,13 +119,13 @@ export function Register() {
             value={companyName}
             onChange={(e) => setCompanyName(e.target.value)}
             placeholder="Company Name"
-            sx={customInputStyles.root}
+            sx={loginInputStyles.root}
           />
-          <Button onClick={register} sx={customButtonStyles.root}>
+          <Button onClick={register} sx={registerButtonStyles.root}>
             Register
           </Button>
           <h4 style={{ alignSelf: "center" }}>Already have an account?</h4>
-          <Button href="/" sx={customButtonStyles.root}>Login</Button>
+          <Button href="/" sx={registerButtonStyles.root}>Login</Button>
         </Stack>
       </div>
     </div>

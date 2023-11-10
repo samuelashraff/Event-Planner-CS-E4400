@@ -5,19 +5,57 @@
 
 .card-list {
     display: flex;
-    flex-direction: column;
+    margin-bottom: 2%;
 }
 
 .card {
-    margin-right: 1%;
-    max-width: 20%;
+    height: 100%;
+    max-width: 100%;
     margin-bottom: 5px;
+    background-color: #53C8ED !important;
+    cursor: pointer;
+}
+
+.card-content {
+    height: 100%;
+    /* Make sure the content takes up the full height of the card */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.card-box {
+    flex: 0 0 15%;
+    margin-left: 10px;
+    margin-bottom: 2%;
+    border-radius: 10px 10px 10px 10px;
+}
+
+.card-box:hover .card {
+    background-color: #1e9dc4 !important;
+}
+
+.card-content.chosen {
+    background-color: black !important;
 }
 
 .card-location {
+    font-size: 0.8rem;
     background-color: grey;
     border-radius: 10px 10px 10px 10px;
-    max-width: 15%;
+    max-width: 100%;
     display: flex;
     flex-direction: row;
+    padding: 3px;
+}
+
+.empty-card {
+    background-color: #FBFBFB;
+}
+
+.empty-card .card-content {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }

@@ -12,21 +12,20 @@ export function CreateEventModal({ isModalOpen, setIsModalOpen }) {
     // Hooks
     const [eventDate, setEventDate] = useState("")
     const [eventLocation, setEventLocation] = useState("")
-    const [mainTag, setMainTag] = useState(null)
+    const [selectedMainTag, setSelectedMainTag] = useState(null)
     const [subTags, setSubTags] = useState([])
     const [selectedSubTag, setSelectedSubTag] = useState(null)
-    const [selectedTag, setSelectedTag] = useState(null)
-    
 
-    // Main tags
+
+    // Get main tags from db
     const mainTagsQuery = query(collection(db, "main_tags"))
     const [tags] = useCollectionData(mainTagsQuery)
 
 
     // Helper functions
 
-    // Get the list of sub tags from a given main tag
-    const getSubTags = async (mainTag) => {
+    // Get the list of sub tags for a given main tag from db
+    const getSubTagsFromMainTag = async (mainTag) => {
         const subTagRefs = mainTag.sub_tags
         const subTagDocs = await Promise.all(subTagRefs.map(ref => getDoc(ref)))
         const subTagsData = subTagDocs.map(doc => doc.data())
@@ -68,12 +67,11 @@ export function CreateEventModal({ isModalOpen, setIsModalOpen }) {
                             {tags.map((tag) => {
                                 return (
                                     <div
-                                        className={`tag-element ${selectedTag === tag ? 'selected' : ''}`}
+                                        className={`tag-element ${selectedMainTag === tag ? 'selected' : ''}`}
                                         key={tag.id}
                                         onClick={() => {
-                                            setMainTag(tag);
-                                            setSelectedTag(tag);
-                                            getSubTags(tag);
+                                            setSelectedMainTag(tag);
+                                            getSubTagsFromMainTag(tag);
                                         }}
                                     >
                                         {tag.name}
@@ -83,7 +81,7 @@ export function CreateEventModal({ isModalOpen, setIsModalOpen }) {
                         </div>
                     </Box>
                 )}
-                {mainTag && (
+                {selectedMainTag && (
                     <Box className="subTag-box">
                         <div className="tag-list">
                             {subTags.map((subTag) => {
@@ -103,7 +101,7 @@ export function CreateEventModal({ isModalOpen, setIsModalOpen }) {
                 )}
                 {selectedSubTag && (
                     <Box className="venue-list">
-                        <Venues labels={selectedSubTag.filter_labels} eventDate={eventDate} mainTagName={mainTag.name}/>
+                        <Venues labels={selectedSubTag.filter_labels} eventDate={eventDate} mainTagName={selectedMainTag.name} />
                     </Box>
                 )}
                 <Button variant="contained" onClick={() => setIsModalOpen(false)}>Close</Button>

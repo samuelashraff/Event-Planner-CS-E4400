@@ -1,8 +1,8 @@
 import "../../styles/VenueList.css"
-import { Card, CardContent } from "@mui/material";
-import { collection, getDoc, getDocs, query, where } from "firebase/firestore";
+import { collection, getDoc, getDocs, limit, query, where } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { db } from "../../firebase";
+import { VenueCards } from "./VenueCards";
 
 export function AfterworkVenues({ labels, eventDate }) {
     const [venues, setVenues] = useState({})
@@ -10,12 +10,11 @@ export function AfterworkVenues({ labels, eventDate }) {
     // Helper functions
 
     // Fetches the venues filtering by the labels given by the sub tag.
-    const fetchVenuesAndFilterByLabel = async (labels) => {
+    const fetchVenuesAndFilterByLabel = async () => {
         const venuesRef = collection(db, "venues")
-        const venuesQuery = query(venuesRef, where("labels", "array-contains-any", labels))
+        const venuesQuery = query(venuesRef, where("labels", "array-contains-any", labels), limit(8))
         const venuesSnapShot = await getDocs(venuesQuery)
         const venuesData = venuesSnapShot.docs.map((doc) => doc.data())
-        console.log(venuesData)
 
         filterVenuesByDate(venuesData)
     }
@@ -27,16 +26,18 @@ export function AfterworkVenues({ labels, eventDate }) {
                 const eventDoc = await getDoc(eventRef)
 
                 // Get date field from eventDoc and set its format to 'YYYY-MM-DD'
-                const dateOfEvent = eventDoc.data().date.toDate().toISOString().split('T')[0]
+                const dateOfEvent = new Date(eventDoc.data().date.toDate().toISOString().split('T')[0])
+                // Get date user inputed in the start of the form and set its format to 'YYYY-MM-DD'
+                const dateUserInputed = new Date(new Date(eventDate).toISOString().split('T')[0])
 
-                // Compare date field to event date set by user. If same, then this particular venue is booked for that day.
-                if (dateOfEvent === new Date(eventDate).toISOString().split('T')[0]) {
+                // Compare date field to event date set by user. If same, then this particular venue is booked for that day
+                // and we don't wish to show that venue here
+                if (dateOfEvent === dateUserInputed) {
                     return false    // Venue booked for selected day
                 }
             }
             return true // Venue is available for the selected day
         })
-
         groupVenuesByLabel(filteredVenues)
     }
 
@@ -53,9 +54,10 @@ export function AfterworkVenues({ labels, eventDate }) {
         setVenues(groupedVenues)
     }
 
+
     useEffect(() => {
-        fetchVenuesAndFilterByLabel(labels)
-    }, [])
+        fetchVenuesAndFilterByLabel()
+    }, [venues])
 
     // TODO for next time:
     // 1. Add filtering by date as well
@@ -66,23 +68,7 @@ export function AfterworkVenues({ labels, eventDate }) {
         <>
             <div className="venues">
                 <h3>Venues</h3>
-                {labels.map((label) => (
-                    <div className="card-list" key={label}>
-                        <p>{label}</p>
-                        {venues[label]?.map((venue) => (
-                            <div className="card-box">
-                                <Card className="card" key={venue.id}>
-                                    <CardContent>
-                                        {venue.name}
-                                    </CardContent>
-                                </Card>
-                                <div className="card-location">
-                                    {venue.location}
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                ))}
+                <VenueCards labels={labels} venues={venues} />
             </div>
         </>
     )
