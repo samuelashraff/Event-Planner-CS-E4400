@@ -1,17 +1,18 @@
 .tasks {
     display: flex;
-    flex-direction: column;
 }
 
 .task-list {
     display: flex;
+    overflow-x: scroll;
     flex-direction: column;
 }
 
 .task-card {
     margin-right: 1%;
-    max-width: 20%;
+    max-width: 100%;
     margin-bottom: 5px;
+    background: blue;
 }
 
 .task-card-location {
