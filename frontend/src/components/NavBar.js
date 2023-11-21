@@ -1,23 +1,24 @@
 import { logOut, auth, db } from '../firebase'
 import '../styles/NavBar.css'
-import { collection, query, getDocs } from 'firebase/firestore'
+import { collection, query, getDocs, where, doc, limit } from 'firebase/firestore'
 import { Button } from '@mui/material'
 import { useEffect, useState } from 'react'
 import { CreateEventModal } from './CreateEventModal'
 
 function Navbar() {
-  // const [user, loading, error] = useAuthState(auth)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [events, setEvents] = useState([])
-
-  // const currentUserRef = doc(db, "users", auth.currentUser.uid)
 
   useEffect(() => {
 
     const fetchEvents = async () => {
-      const eventsQuery = query(collection(db, "events"))
+      const currentUserRef = doc(db, "users", auth.currentUser.uid)
+      const eventsQuery = query(collection(db, "events"), where("userRef", "==", currentUserRef), limit(8))
       const eventsSnapShot = await getDocs(eventsQuery)
-      const eventsData = eventsSnapShot.docs.map((doc) => doc.data())
+      const eventsData = eventsSnapShot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }))
       setEvents(eventsData)
     }
     fetchEvents()
@@ -27,14 +28,14 @@ function Navbar() {
     <nav className="navbar">
       <div className="container">
         <div className="nav-elements-left">
-          <div className="overview-box" href="/">
-            <h2 style={{ color: "black" }}>Overview page</h2>
+          <div className="overview-box">
+            <h2 style={{ color: "black" }}><a href="/">Overview page</a></h2>
           </div>
           {events && events.length > 0 && (
             <div className="event-tabs">
               {events.map((event, index) => {
                 return <div className="create-event-box" key={index}>
-                  <h2>Event {index + 1}</h2>
+                  <h2>{event.name}</h2>
                 </div>
               })}
             </div>
@@ -49,7 +50,7 @@ function Navbar() {
                 <line x1="5" y1="12" x2="19" y2="12" stroke="black" strokeWidth="2" strokeLinecap="round" />
               </svg>
             </div>
-            <CreateEventModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
+            <CreateEventModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} setEvents={setEvents}/>
           </div>
         </div>
         <div className="nav-elements-right">

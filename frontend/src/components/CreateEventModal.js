@@ -1,20 +1,24 @@
-import { Box, Button, Modal, Stack } from "@mui/material";
+import { Box, Modal, Stack } from "@mui/material";
+import React from 'react'
 import "../styles/CreateEventModal.css"
-import { addDoc, collection, doc, getDocs, query, where } from "firebase/firestore";
+import { addDoc, arrayUnion, collection, doc, getDocs, query, updateDoc, where } from "firebase/firestore";
 import { auth, db } from "../firebase";
 import { modalStyle } from "../styles/styles";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Venues } from "./modal/Venues";
 import { useAuthState } from "react-firebase-hooks/auth";
 
-export function CreateEventModal({ isModalOpen, setIsModalOpen }) {
+export function CreateEventModal({ isModalOpen, setIsModalOpen, setEvents }) {
     const [user] = useAuthState(auth)
+
+    // Hardcoding these tags here instead of the database in order to reduce the number of requests made
+    // in order to not exceed firestore's daily quota :)
+    const mainTagsList = ["Afterwork", "Team day", "Education", "Knowledge sharing"]
 
     // Hooks
     const [eventDate, setEventDate] = useState("")
     const [eventLocation, setEventLocation] = useState("")
     const [eventName, setEventName] = useState("")
-    const [mainTags, setMainTags] = useState([])
     const [selectedMainTag, setSelectedMainTag] = useState(null)
     const [selectedVenues, setSelectedVenues] = useState([])
     const [venues, setVenues] = useState([])
@@ -33,14 +37,13 @@ export function CreateEventModal({ isModalOpen, setIsModalOpen }) {
         const venuesRef = collection(db, "venues")
         const venuesQuery = query(venuesRef, where("filter_label", "==", tagName))
         const venuesSnapShot = await getDocs(venuesQuery)
-        const venuesData = venuesSnapShot.docs.map((doc) => doc.data())
+        const venuesData = venuesSnapShot.docs.map((doc) => ({
+            id: doc.id,
+            ...doc.data()
+        }))
 
         setVenues(venuesData)
     }
-
-    // useEffect(() => {
-    //     console.log("Selected venues ID:", selectedVenues)
-    // }, [selectedVenues])
 
     // Add event and close modal
     const onEventSubmit = async (e) => {
@@ -55,29 +58,43 @@ export function CreateEventModal({ isModalOpen, setIsModalOpen }) {
                 userRef: userRef
             })
             console.log("Event doc written with ID: " + docRef.id)
+
+            // Get the reference of the newly created event
+            const eventRef = doc(db, 'events', docRef.id)
+
+            // Update each selected venue to include the new event in its booked_events array
+            // NOTE! We might not have time to implement this fully so might delete later
+            await Promise.all(selectedVenues.map(async (venue) => {
+                await updateDoc(doc(db, 'venues', venue.id), {
+                    booked_events: arrayUnion(eventRef)
+                })
+            }))
+
+            // Update the events in the NavBar immediately
+            setEvents((prevEvents) => [
+                ...prevEvents,
+                {
+                  id: docRef.id,
+                  name: eventName,
+                  date: eventDate,
+                  location: eventLocation,
+                  booked_venues: selectedVenues,
+                  userRef: userRef,
+                },
+              ])
+
+
             setEventDate("")
             setEventLocation("")
             setEventName("")
             setSelectedMainTag("")
-            setMainTags(null)
             setSelectedVenues([])
             setVenues([])
             setIsModalOpen(false)
         } catch (e) {
-            console.error("Error adding event to db")
+            console.error("Error adding event to db: " + e)
         }
     }
-
-
-    useEffect(() => {
-        const fetchMainTags = async () => {
-            const mainTagsQuery = query(collection(db, "main_tags"))
-            const mainTagsSnapShot = await getDocs(mainTagsQuery)
-            const mainTagsData = mainTagsSnapShot.docs.map((doc) => doc.data())
-            setMainTags(mainTagsData)
-        }
-        fetchMainTags()
-    }, [])
 
 
 
@@ -120,16 +137,16 @@ export function CreateEventModal({ isModalOpen, setIsModalOpen }) {
                     <Box className="tag-box">
                         <h3>Theme of the event</h3>
                         <div className="tag-list">
-                            {mainTags.map((tag) => {
+                            {mainTagsList.map((tag, index) => {
                                 return (
                                     <button
                                         className={`tag-element ${selectedMainTag === tag ? 'selected' : ''}`}
-                                        key={tag.id}
+                                        key={index}
                                         onClick={() => {
                                             setSelectedMainTag(tag);
                                         }}
                                     >
-                                        {tag.name}
+                                        {tag}
                                     </button>
                                 )
                             })}
@@ -151,7 +168,7 @@ export function CreateEventModal({ isModalOpen, setIsModalOpen }) {
                     <div className="submit-form">
                         <p>TODO: Add event to group dropdown</p>
                         <button className="close-modal-button" onClick={onEventSubmit}>Book Event</button>
-                        <p style={{marginLeft: "2%"}}>Or try again later</p>
+                        <p style={{ marginLeft: "2%" }}>Or try again later</p>
                         <button className="close-modal-button" onClick={() => setIsModalOpen(false)}>Close window</button>
                     </div>
                 ) : (
