@@ -1,47 +1,40 @@
 import { logOut, auth, db } from '../firebase'
 import '../styles/NavBar.css'
-import { collection, doc, where, query } from 'firebase/firestore'
-import { useCollectionData } from 'react-firebase-hooks/firestore'
+import { collection, query, getDocs, where, doc, limit } from 'firebase/firestore'
 import { Button } from '@mui/material'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { CreateEventModal } from './CreateEventModal'
 
 function Navbar() {
-  // const [user, loading, error] = useAuthState(auth)
   const [isModalOpen, setIsModalOpen] = useState(false)
-  // const [data, setData] = useState([])
+  const [events, setEvents] = useState([])
 
-  const currentUserRef = doc(db, "users", auth.currentUser.uid)
-  console.log(currentUserRef.id)
-  const eventsQuery = query(collection(db, "events"), where("userRef", "==", currentUserRef))
-  const [events] = useCollectionData(eventsQuery)
-  console.log(events)
+  useEffect(() => {
 
-  // async function fetchEvents() {
-  //   await getDocs(collection(db, "events"))
-  //     .then((querySnapshot) => {
-  //       const newData = querySnapshot.docs
-  //         .map((doc) => ({ ...doc.data(), id: doc.id }));
-  //       setData(newData);
-  //     })
-  // }
-
-  // useEffect(() => {
-  //   fetchEvents()
-  //   // console.log(data)
-  // }, [data])
+    const fetchEvents = async () => {
+      const currentUserRef = doc(db, "users", auth.currentUser.uid)
+      const eventsQuery = query(collection(db, "events"), where("userRef", "==", currentUserRef), limit(8))
+      const eventsSnapShot = await getDocs(eventsQuery)
+      const eventsData = eventsSnapShot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }))
+      setEvents(eventsData)
+    }
+    fetchEvents()
+  }, [])
 
   return (
     <nav className="navbar">
       <div className="container">
         <div className="nav-elements-left">
-          <div className="overview-box" href="/">
-            <h2 style={{ color: "black" }}>Overview page</h2>
+          <div className="overview-box">
+            <h2 style={{ color: "black" }}><a href="/">Overview page</a></h2>
           </div>
           {events && events.length > 0 && (
-            <div>
-              {events.map((event) => {
-                return <div className="create-event-box" key={event.id}>
+            <div className="event-tabs">
+              {events.map((event, index) => {
+                return <div className="create-event-box" key={index}>
                   <h2>{event.name}</h2>
                 </div>
               })}
@@ -57,7 +50,7 @@ function Navbar() {
                 <line x1="5" y1="12" x2="19" y2="12" stroke="black" strokeWidth="2" strokeLinecap="round" />
               </svg>
             </div>
-            <CreateEventModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
+            <CreateEventModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} setEvents={setEvents}/>
           </div>
         </div>
         <div className="nav-elements-right">

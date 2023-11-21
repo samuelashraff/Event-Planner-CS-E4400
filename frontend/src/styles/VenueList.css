@@ -3,21 +3,71 @@
     flex-direction: column;
 }
 
+.tag-list {
+    display: flex;
+    flex-direction: row;
+}
+
+
 .card-list {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: wrap;
 }
 
 .card {
-    margin-right: 1%;
-    max-width: 20%;
-    margin-bottom: 5px;
+    flex-direction: column;
+    height: 100%;
+    margin-bottom: 3%;
+    background-color: #53C8ED !important;
+    cursor: pointer;
+}
+
+.card-content {
+    /* Make sure the content takes up the full height of the card */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.venue-type {
+    font-size: 0.7rem;
+    margin-bottom: 2%;
+}
+
+.card-box {
+    flex: 0 0 15%;
+    margin-left: 10px;
+    border-radius: 10px 10px 10px 10px;
+    margin-bottom: 7%;
+}
+
+.card-box:hover .card {
+    background-color: #1e9dc4 !important;
+}
+
+.chosen {
+    background-color: #1e9dc4 !important;
+    box-shadow: 0 0 5px 2px #1e9dc4 !important;
 }
 
 .card-location {
+    font-size: 0.7rem;
     background-color: grey;
     border-radius: 10px 10px 10px 10px;
-    max-width: 15%;
+    max-width: 100%;
     display: flex;
     flex-direction: row;
+    padding: 3px;
+}
+
+.empty-card {
+    background-color: #FBFBFB;
+}
+
+.empty-card .card-content {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }

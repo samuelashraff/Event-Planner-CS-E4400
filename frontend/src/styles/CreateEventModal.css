@@ -2,6 +2,12 @@
     min-width: 80%;
 }
 
+.modal-content {
+    max-height: 70% !important;
+    overflow-y: auto !important;
+}
+
+
 .first-row-element {
     display: flex;
     flex-direction: column;
@@ -12,6 +18,7 @@
     background-color: white;
     border-radius: 10px;
     padding: 10px;
+    font-weight: bold;
 }
 
 .tag-box {
@@ -33,32 +40,43 @@
     margin-right: 2%;
     padding: 5px;
     cursor: pointer;
+    font-weight: bold;
 }
 
 .tag-element:hover {
     background-color: #FFAE64;
 }
 
-.tag-element.selected {
-    background-color: #FFAE64;
+.selected {
+    background-color: #FFAE64 !important;
 }
 
-.subTag-box {
+
+.venue-list {
+    width: 90% !important;
+}
+
+.submit-form {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+}
+
+.submit-form button {
     margin-left: 2%;
 }
 
-.subTag-element {
-    background-color: #47656E;
-    color: white !important; 
+.close-modal-button {
     border-radius: 10px;
+    background-color: #D9D9D9;
+    font-weight: bold;
     border: 1px solid white;
-    color: black;
-    text-align: center;
-    margin-right: 10px;
-    padding: 5px;
     cursor: pointer;
+    height: 80%;
+    padding: 5px;
+
 }
 
-.subTag-element.selected {
+.close-modal-button:hover {
     background-color: #FFAE64;
 }
