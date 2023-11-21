@@ -3,44 +3,56 @@
     flex-direction: column;
 }
 
+.tag-list {
+    display: flex;
+    flex-direction: row;
+}
+
+
 .card-list {
     display: flex;
-    margin-bottom: 2%;
+    flex-direction: row;
+    flex-wrap: wrap;
 }
 
 .card {
+    flex-direction: column;
     height: 100%;
-    max-width: 100%;
-    margin-bottom: 5px;
+    margin-bottom: 3%;
     background-color: #53C8ED !important;
     cursor: pointer;
 }
 
 .card-content {
-    height: 100%;
     /* Make sure the content takes up the full height of the card */
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 }
 
+.venue-type {
+    font-size: 0.7rem;
+    margin-bottom: 2%;
+}
+
 .card-box {
     flex: 0 0 15%;
     margin-left: 10px;
-    margin-bottom: 2%;
     border-radius: 10px 10px 10px 10px;
+    margin-bottom: 7%;
 }
 
 .card-box:hover .card {
     background-color: #1e9dc4 !important;
 }
 
-.card-content.chosen {
-    background-color: black !important;
+.chosen {
+    background-color: #1e9dc4 !important;
+    box-shadow: 0 0 5px 2px #1e9dc4 !important;
 }
 
 .card-location {
-    font-size: 0.8rem;
+    font-size: 0.7rem;
     background-color: grey;
     border-radius: 10px 10px 10px 10px;
     max-width: 100%;

@@ -1,0 +1,40 @@
+.tasks {
+    display: flex;
+}
+
+.task-list {
+    display: flex;
+    overflow-x: scroll;
+    flex-direction: column;
+}
+
+.task-card {
+    margin-right: 1%;
+    max-width: 100%;
+    margin-bottom: 5px;
+    background: blue;
+}
+
+.task-card-location {
+    background-color: grey;
+    border-radius: 10px 10px 10px 10px;
+    max-width: 15%;
+    display: flex;
+    flex-direction: row;
+}
+
+table {
+    font-family: sans-serif;
+    border-collapse: collapse;
+    border: 1px solid #ccc;
+    margin: 25px;
+    background-color: #312c2c;
+  }
+  tr {
+    border-bottom: 1px solid #ccc;
+  }
+  th,
+  td {
+    text-align: left;
+    padding: 8px 10px;
+  }

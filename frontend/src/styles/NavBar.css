@@ -20,6 +20,11 @@
   justify-content: space-evenly;
 }
 
+.event-tabs {
+  display: flex;
+  flex-direction: row;
+}
+
 .overview-box {
   background-color: #4aaecd;
   display: inline-block;
