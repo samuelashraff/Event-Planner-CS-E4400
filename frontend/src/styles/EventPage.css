@@ -1,0 +1,127 @@
+.event-page {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 2%;
+}
+
+.loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+}
+
+.event-details {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    border: 2px solid white;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 1%;
+}
+
+.edit-details-element {
+    display: flex;
+    flex-direction: column;
+}
+
+.edit-details-button-list {
+    display: flex;
+    margin-top: 10%;
+}
+
+.event-row-element {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    width: 100%;
+}
+
+.event-row-element h3 {
+    margin-right: 5px;
+}
+
+.event-row-input {
+    background-color: white;
+    border-radius: 10px;
+    padding: 10px;
+    font-weight: bold;
+}
+
+.edit-details-button {
+    border-radius: 10px;
+    background-color: #D9D9D9;
+    font-weight: bold;
+    border: 1px solid white;
+    cursor: pointer;
+    height: 80%;
+    padding: 5px;
+    margin-bottom: 2%;
+}
+
+.event-venue-list {
+    width: 90% !important;
+}
+
+.event-card-list {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.event-card-box {
+    flex: 0 0 15%;
+    margin-left: 10px;
+    border-radius: 10px 10px 10px 10px;
+    margin-bottom: 7%;
+}
+
+.event-venue-card {
+    flex-direction: column;
+    height: 100%;
+    margin-bottom: 3%;
+    background-color: #53C8ED !important;
+    cursor: pointer;
+}
+
+.event-venue-card-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.event-venue-type {
+    font-size: 0.7rem;
+    margin-bottom: 2%;
+}
+
+.event-venue-card-box:hover .event-venue-card {
+    background-color: #1e9dc4 !important;
+}
+
+.event-venue-card-location {
+    font-size: 0.7rem;
+    background-color: grey;
+    border-radius: 10px 10px 10px 10px;
+    max-width: 100%;
+    display: flex;
+    flex-direction: row;
+    padding: 3px;
+}
+
+.delete-event-button {
+    padding: 10px 20px;
+    border: 2px solid black;
+    color: black !important;
+    border-radius: 8px;
+    background-color: #ff6666;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+.delete-event-button:hover {
+    background-color: #ff4444 !important;
+  }

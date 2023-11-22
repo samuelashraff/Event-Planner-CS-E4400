@@ -60,14 +60,3 @@
     flex-direction: row;
     padding: 3px;
 }
-
-.empty-card {
-    background-color: #FBFBFB;
-}
-
-.empty-card .card-content {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}

@@ -50,38 +50,36 @@ export function CreateEventModal({ isModalOpen, setIsModalOpen, setEvents }) {
         e.preventDefault()
         try {
             const userRef = doc(db, 'users', user.uid)
+
+            // Convert selectedVenues to DocumentReferences
+            const selectedVenuesRefs = await Promise.all(
+                selectedVenues.map(async (venue) => {
+                    // Assuming venue.id is the unique identifier for the venue
+                    const venueRef = doc(db, "venues", venue.id)
+                    return venueRef;
+                })
+            )
             const docRef = await addDoc(collection(db, "events"), {
                 name: eventName,
                 date: eventDate,
                 location: eventLocation,
-                booked_venues: selectedVenues,
+                booked_venues: selectedVenuesRefs,
                 userRef: userRef
             })
             console.log("Event doc written with ID: " + docRef.id)
-
-            // Get the reference of the newly created event
-            const eventRef = doc(db, 'events', docRef.id)
-
-            // Update each selected venue to include the new event in its booked_events array
-            // NOTE! We might not have time to implement this fully so might delete later
-            await Promise.all(selectedVenues.map(async (venue) => {
-                await updateDoc(doc(db, 'venues', venue.id), {
-                    booked_events: arrayUnion(eventRef)
-                })
-            }))
 
             // Update the events in the NavBar immediately
             setEvents((prevEvents) => [
                 ...prevEvents,
                 {
-                  id: docRef.id,
-                  name: eventName,
-                  date: eventDate,
-                  location: eventLocation,
-                  booked_venues: selectedVenues,
-                  userRef: userRef,
+                    id: docRef.id,
+                    name: eventName,
+                    date: eventDate,
+                    location: eventLocation,
+                    booked_venues: selectedVenues,
+                    userRef: userRef,
                 },
-              ])
+            ])
 
 
             setEventDate("")
@@ -110,7 +108,6 @@ export function CreateEventModal({ isModalOpen, setIsModalOpen, setEvents }) {
                             <h3>Choose time</h3>
                             <input
                                 type="date"
-                                variant="outlined"
                                 value={eventDate}
                                 onChange={(e) => setEventDate(e.target.value)}
                                 className="first-row-input" />
