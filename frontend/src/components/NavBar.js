@@ -1,9 +1,9 @@
 import { logOut, auth, db } from '../firebase'
 import '../styles/NavBar.css'
 import { collection, query, getDocs, where, doc, limit } from 'firebase/firestore'
-import { Button } from '@mui/material'
 import { useEffect, useState } from 'react'
 import { CreateEventModal } from './CreateEventModal'
+import { Link } from 'react-router-dom'
 
 function Navbar() {
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -29,14 +29,20 @@ function Navbar() {
       <div className="container">
         <div className="nav-elements-left">
           <div className="overview-box">
-            <h2 style={{ color: "black" }}><a href="/">Overview page</a></h2>
+            <h2 style={{ color: "black" }}><Link to="/">Dashboard</Link></h2>
           </div>
           {events && events.length > 0 && (
             <div className="event-tabs">
               {events.map((event, index) => {
-                return <div className="create-event-box" key={index}>
-                  <h2>{event.name}</h2>
-                </div>
+                return (
+                  <div className="create-event-box" key={index}>
+                    <h2>
+                      <Link to={`/events/${event.id}`}>
+                        {event.name}
+                      </Link>
+                    </h2>
+                  </div>
+                )
               })}
             </div>
           )}
@@ -50,15 +56,15 @@ function Navbar() {
                 <line x1="5" y1="12" x2="19" y2="12" stroke="black" strokeWidth="2" strokeLinecap="round" />
               </svg>
             </div>
-            <CreateEventModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} setEvents={setEvents}/>
+            <CreateEventModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} setEvents={setEvents} />
           </div>
         </div>
         <div className="nav-elements-right">
-          <Button
-            variant="contained"
+          <button
+            className="logout-button"
             onClick={logOut}>
             Sign Out
-          </Button>
+          </button>
         </div>
       </div>
     </nav>

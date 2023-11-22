@@ -5,6 +5,7 @@ import App from './App';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import {Register} from './Register'
 import "@fontsource/maven-pro"
+import { EventPage } from './EventPage';
 
 
 const router = createBrowserRouter([
@@ -15,6 +16,10 @@ const router = createBrowserRouter([
   {
     path: "/register",
     element: <Register/>
+  },
+  {
+    path: "/events/:id",
+    element: <EventPage />
   }
 ])
 
