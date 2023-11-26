@@ -9,7 +9,7 @@ import "./styles/Register.css"
 import { FormControl, InputLabel, MenuItem, Select, Stack, TextField } from "@mui/material"
 import Button from "@mui/material/Button"
 import { TitleComponent } from "./components/TitleComponent"
-import { loginInputStyles, registerButtonStyles } from "./styles/styles"
+import { loginInputStyles, registerButtonStyles, registerSelectStyles } from "./styles/styles"
 
 
 export function Register() {
@@ -36,29 +36,7 @@ export function Register() {
 
   
 
-  const customStyles = {
-    formControl: {
-      color: 'white', // Set text color to white
-      '& .MuiOutlinedInput-notchedOutline': {
-        borderColor: 'white !important', // Set border color to white
-      },
-    },
-    inputLabel: {
-      color: 'white', // Set label color to white
-    },
-    select: {
-      '&:before': {
-        borderColor: 'white', // Set border color before selecting
-      },
-      '&:after': {
-        borderColor: 'white', // Set border color after selecting
-      },
-      color: 'white', // Set selected option color to white
-    },
-    icon: {
-      fill: 'white', // Set icon color to white
-    },
-  }
+  
 
   if (user) {
     return (
@@ -99,15 +77,15 @@ export function Register() {
             placeholder="Password"
             sx={loginInputStyles.root}
           />
-          <FormControl sx={customStyles.formControl}>
-            <InputLabel sx={customStyles.inputLabel}>
+          <FormControl sx={registerSelectStyles.formControl}>
+            <InputLabel sx={registerSelectStyles.inputLabel}>
               Account Type
             </InputLabel>
             <Select
               value={accountType}
               onChange={handleAccountType}
               label="Account Type"
-              sx={customStyles.select}
+              sx={registerSelectStyles.select}
             >
               <MenuItem value={"Company"}>Company</MenuItem>
               <MenuItem value={"Non-profit organization"}>Non-profit organization</MenuItem>

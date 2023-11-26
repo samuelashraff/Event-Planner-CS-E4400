@@ -1,17 +1,25 @@
-import { EventList } from "./components/EventList";
 import Navbar from "./components/NavBar";
 import "./styles/Dashboard.css"
-import TasksList from "./components/TasksList";
+import { TaskOverview } from "./components/TaskOverview";
 
 
 export function DashBoard() {
 
-    const eventId = 2;
     return (
         <div className="dashboard">
             <Navbar />
-            <h1>Hello World</h1>
-            {/* <TasksList  eventId={eventId}/> */}
+            <div className="dashboard-scheduler">
+
+            </div>
+
+            <div className="dashboard-sections">
+                <div className="dashboard-section community-section">
+                    <p>Community Section</p>
+                </div>
+                <div className="dashboard-section task-overview">
+                    <TaskOverview />
+                </div>
+            </div>
         </div>
     )
 }
