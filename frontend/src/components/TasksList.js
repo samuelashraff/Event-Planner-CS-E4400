@@ -1,7 +1,7 @@
 import '../styles/TasksList.css'
 import { collection, doc, where, query } from 'firebase/firestore'
 import { useCollectionData } from 'react-firebase-hooks/firestore'
-import { Button } from '@mui/material'
+import { Button, Checkbox, checkboxClasses } from '@mui/material'
 import { CreateEventModal } from './CreateEventModal'
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
@@ -33,7 +33,7 @@ export default function TasksList({eventId}) {
 
   useEffect(() => {
     const fetchTasks = async () => {
-      // Add your API endpoint for fetching tasks
+      // TDOO: Update Endpoint to Firebase
       const response = await axios.get(`http://localhost:3500/todos?eventId=${eventId}`);
       setTasks(response.data);
     };
@@ -41,10 +41,12 @@ export default function TasksList({eventId}) {
     fetchTasks();
   }, [eventId]);
 
-  const updateTaskStatus = async (taskId, status) => {
+  const updateTaskStatus = async (task, status) => {
     // Add your API endpoint for updating task status
     //TODO: Update all fields of tasks
-    await axios.put(`http://localhost:3500/todos/${taskId}`, { status });
+    task.completed = status;
+
+    await axios.put(`http://localhost:3500/todos/${task.id}`, task);
     // Update tasks state after status update
   };
 
@@ -68,11 +70,12 @@ export default function TasksList({eventId}) {
 
 // Task Card Component
 const TaskCard = ({ task, updateTaskStatus }) => (
-  <div className='task-card'>
+  <div className='task-card' >
     <p> Name: {task.name}</p>
     <p> Desc: {task.description}</p>
-    <button onClick={() => updateTaskStatus(task.id, 'completed')}>Mark as Completed</button>
-  </div>
+    {task.completed || <button onClick={() => updateTaskStatus(task, true)}>Mark as Completed</button>
+    }
+</div>
 );
 
 // New Task Form Component
