@@ -47,9 +47,59 @@ const loginInputStyles = {
     },
   }
 
+  const registerSelectStyles = {
+    formControl: {
+      color: 'white', // Set text color to white
+      '& .MuiOutlinedInput-notchedOutline': {
+        borderColor: 'white !important', // Set border color to white
+      },
+    },
+    inputLabel: {
+      color: 'white', // Set label color to white
+    },
+    select: {
+      '&:before': {
+        borderColor: 'white', // Set border color before selecting
+      },
+      '&:after': {
+        borderColor: 'white', // Set border color after selecting
+      },
+      color: 'white', // Set selected option color to white
+    },
+    icon: {
+      fill: 'white', // Set icon color to white
+    },
+  }
+
+  const taskOverviewSelectStyles = {
+    formControl: {
+      color: 'white', // Set text color to white
+      '& .MuiOutlinedInput-notchedOutline': {
+        borderColor: 'white !important', // Set border color to white
+      },
+    },
+    inputLabel: {
+      color: 'white', // Set label color to white
+    },
+    select: {
+      '&:before': {
+        borderColor: 'white', // Set border color before selecting
+      },
+      '&:after': {
+        borderColor: 'white', // Set border color after selecting
+      },
+      color: 'white', // Set selected option color to white
+    },
+    icon: {
+      fill: 'white', // Set icon color to white
+    },
+  }
+
 
 export {
     modalStyle,
     loginInputStyles,
-    registerButtonStyles
+    registerButtonStyles,
+    registerSelectStyles,
+    taskOverviewSelectStyles
 }

@@ -7,6 +7,7 @@ import { modalStyle } from "../styles/styles";
 import { useState } from "react";
 import { Venues } from "./modal/Venues";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { mapVenueTypeToTask } from "../utlis";
 
 export function CreateEventModal({ isModalOpen, setIsModalOpen, setEvents }) {
     const [user] = useAuthState(auth)
@@ -45,7 +46,7 @@ export function CreateEventModal({ isModalOpen, setIsModalOpen, setEvents }) {
         setVenues(venuesData)
     }
 
-    // Add event and close modal
+    // Add event to db and close modal
     const onEventSubmit = async (e) => {
         e.preventDefault()
         try {
@@ -54,25 +55,42 @@ export function CreateEventModal({ isModalOpen, setIsModalOpen, setEvents }) {
             // Convert selectedVenues to DocumentReferences
             const selectedVenuesRefs = await Promise.all(
                 selectedVenues.map(async (venue) => {
-                    // Assuming venue.id is the unique identifier for the venue
                     const venueRef = doc(db, "venues", venue.id)
                     return venueRef;
                 })
             )
-            const docRef = await addDoc(collection(db, "events"), {
+
+            const eventDocRef = await addDoc(collection(db, "events"), {
                 name: eventName,
                 date: eventDate,
                 location: eventLocation,
                 booked_venues: selectedVenuesRefs,
                 userRef: userRef
             })
-            console.log("Event doc written with ID: " + docRef.id)
+
+            // Get the ID of the created event
+            const eventId = eventDocRef.id;
+
+            // Create tasks and associate them with the event
+            for (const venue of selectedVenues) {
+                const taskName = mapVenueTypeToTask[venue.type];
+                const taskDeadline = new Date()
+                const taskStatus = 'open'
+
+                // Add the event ID to the task document
+                await addDoc(collection(db, 'tasks'), {
+                    name: taskName,
+                    deadline: taskDeadline,
+                    status: taskStatus,
+                    eventId: eventId, // Store the event ID in the task document
+                });
+            }
 
             // Update the events in the NavBar immediately
             setEvents((prevEvents) => [
                 ...prevEvents,
                 {
-                    id: docRef.id,
+                    id: eventId,
                     name: eventName,
                     date: eventDate,
                     location: eventLocation,

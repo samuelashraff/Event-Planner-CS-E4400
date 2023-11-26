@@ -1,9 +1,47 @@
-
-
 .dashboard {
-    min-width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 100%;
+}
+
+.dashboard-scheduler {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    width: 100%;
+    border-bottom: 2px solid #ccc;
+    height: 10em !important;
+    margin-bottom: 5%;
+}
+
+.dashboard-column {
+    display: flex;
     justify-content: center;
+    align-items: center;
+    height: 100%;
+    border-right: 1px solid #ccc;
+    padding: 0 10px;
+}
+
+.dashboard-sections {
+    display: flex;
+    width: 100%;
+    height: 100% !important;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.dashboard-section {
+    width: 40%;
+    border: 1px solid #ccc;
+    padding: 20px;
+}
+
+.community-section {
+    margin-right: 10px;
+
+}
+
+.task-overview {
+    margin-left: 10px;
 }
