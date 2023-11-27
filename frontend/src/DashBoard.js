@@ -1,6 +1,7 @@
 import Navbar from "./components/NavBar";
 import "./styles/Dashboard.css"
 import { TasksList } from "./components/TasksList";
+import { CommunitySection } from "./components/CommunitySection";
 
 
 export function DashBoard() {
@@ -14,7 +15,7 @@ export function DashBoard() {
 
             <div className="dashboard-sections">
                 <div className="dashboard-section community-section">
-                    <p>Community Section</p>
+                    <CommunitySection />
                 </div>
                 <div className="dashboard-section task-overview">
                     {/* <TasksList /> */}
