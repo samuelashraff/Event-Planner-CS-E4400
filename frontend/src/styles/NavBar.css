@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
 
 .navbar {
-  min-width: 100%;
+  width: 100%;
   color: white;
   padding: 8px 0;
   border-bottom: 1px solid white;
