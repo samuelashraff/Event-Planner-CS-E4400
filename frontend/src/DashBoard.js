@@ -1,6 +1,6 @@
 import Navbar from "./components/NavBar";
 import "./styles/Dashboard.css"
-import { TasksList } from "./components/TasksList";
+import TasksList from "./components/TasksList";
 import { CommunitySection } from "./components/CommunitySection";
 import { useEffect, useState } from "react";
 import { Button, Dialog, DialogContent, DialogTitle } from "@mui/material";
@@ -84,7 +84,7 @@ export function DashBoard() {
                     <CommunitySection />
                 </div>
                 <div className="dashboard-section task-overview">
-                    {/* <TasksList /> */}
+                    <TasksList />
                 </div>
             </div>
         </div>

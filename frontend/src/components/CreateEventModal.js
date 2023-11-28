@@ -70,19 +70,22 @@ export function CreateEventModal({ isModalOpen, setIsModalOpen, setEvents }) {
 
             // Get the ID of the created event
             const eventId = eventDocRef.id;
+            const eventName = eventDocRef.name;
 
             // Create tasks and associate them with the event
             for (const venue of selectedVenues) {
                 const taskName = mapVenueTypeToTask[venue.type];
                 const taskDeadline = new Date()
-                const taskStatus = 'open'
+                const taskStatus = false
 
                 // Add the event ID to the task document
                 await addDoc(collection(db, 'tasks'), {
                     name: taskName,
                     deadline: taskDeadline,
-                    status: taskStatus,
+                    isCompleted: taskStatus,
                     eventId: eventId, // Store the event ID in the task document
+                    eventName: eventName,
+                    userRef: userRef //TO CHECK in review: Needs to be userId
                 });
             }
 
