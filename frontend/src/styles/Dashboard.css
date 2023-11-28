@@ -6,13 +6,39 @@
 }
 
 .dashboard-scheduler {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    background-image: url("../assets/calendar_background_december.png");
+    background-size: 100% 100%;
     width: 100%;
-    border-bottom: 2px solid #ccc;
-    height: 10em !important;
+    height: 20rem !important;
     margin-bottom: 5%;
 }
+
+.scheduler-event-button {
+    background-color: #d9d9d9;
+    border: 2px solid white;
+    border-radius: 8px;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  
+  .button-one {
+    position: relative;
+    top: 40%;
+    left: 30%;
+  }
+  
+  .button-two {
+    position: relative;
+    top: 20%;
+    left: 50%;
+  }
+  
+  .button-three {
+    position: relative;
+    top: 30%;
+    left: 70%;
+  }
 
 .dashboard-column {
     display: flex;
