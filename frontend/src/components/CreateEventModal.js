@@ -79,10 +79,10 @@ export function CreateEventModal({ isModalOpen, setIsModalOpen, setEvents }) {
 
                 // Add the event ID to the task document
                 await addDoc(collection(db, 'tasks'), {
-                    name: taskName,
+                    taskName: taskName,
                     deadline: taskDeadline,
                     isCompleted: taskStatus,
-                    eventId: eventDocRef.id, // Store the event ID in the task document
+                    eventId: eventId, // Store the event ID in the task document
                     eventName: eventName, // Give the task the name of the event supplied by the user
                     uid: userRef.id //TO CHECK in review: Needs to be userId
                 });

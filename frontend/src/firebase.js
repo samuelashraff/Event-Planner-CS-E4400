@@ -95,6 +95,7 @@ const sendPasswordReset = async (email) => {
 }
 const logOut = () => {
 	signOut(auth)
+	window.href="/"
 }
 export {
 	auth,

@@ -39,13 +39,13 @@ export default function TasksList() {
     setFilterText(e.target.value);
   };
 
-  const filteredTasks = tasks.filter(task => JSON.stringify(task.name + task.eventName).toLowerCase().includes(filterText.toLowerCase()));
+  const filteredTasks = tasks.filter(task => JSON.stringify(task.taskName + task.eventName).toLowerCase().includes(filterText.toLowerCase()));
 
     // Task Card Component
   const TaskCard = ({ task, updateTaskStatus, index }) => (
     <table className='task-card' key={index}>
       <td> {task.eventName}</td>
-      <td> {task.name}</td>
+      <td> {task.taskName}</td>
       <td> {Intl.DateTimeFormat('en-US',{year: 'numeric', month: '2-digit',day: '2-digit'}).format(task.deadline)} </td>
       <td><button onClick={() => updateTaskStatus(task.id, true)}>Mark as Completed</button></td>
     </table>
@@ -63,7 +63,7 @@ export default function TasksList() {
         const newTask = {
                           eventName: eventName,
                           eventId: null,
-                          name: name,
+                          taskName: name,
                           uid: auth.currentUser.uid,
                           isCompleted: false
                         };
