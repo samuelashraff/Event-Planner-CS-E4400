@@ -1,5 +1,5 @@
 import { Box, Typography, IconButton, Card, CardContent } from '@mui/material'
-import { getDocs, collection, addDoc, doc, updateDoc, arrayUnion, getDoc, where, query } from 'firebase/firestore'
+import { getDocs, collection, addDoc, doc, updateDoc, arrayUnion, where, query } from 'firebase/firestore'
 import AddIcon from '@mui/icons-material/Add'
 import "../styles/CommunitySection.css"
 import { useEffect, useState } from 'react'

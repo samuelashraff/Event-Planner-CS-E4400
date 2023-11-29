@@ -1,7 +1,7 @@
 import { Box, Modal, Stack } from "@mui/material";
 import React from 'react'
 import "../styles/CreateEventModal.css"
-import { addDoc, arrayUnion, collection, doc, getDocs, query, updateDoc, where } from "firebase/firestore";
+import { addDoc, collection, doc, getDocs, query, where } from "firebase/firestore";
 import { auth, db } from "../firebase";
 import { modalStyle } from "../styles/styles";
 import { useState } from "react";
@@ -83,7 +83,7 @@ export function CreateEventModal({ isModalOpen, setIsModalOpen, setEvents }) {
                     deadline: taskDeadline,
                     isCompleted: taskStatus,
                     eventId: eventDocRef.id, // Store the event ID in the task document
-                    eventName: eventDocRef.name,
+                    eventName: eventName, // Give the task the name of the event supplied by the user
                     uid: userRef.id //TO CHECK in review: Needs to be userId
                 });
             }
