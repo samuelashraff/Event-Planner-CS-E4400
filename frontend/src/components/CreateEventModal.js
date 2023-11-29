@@ -14,7 +14,7 @@ export function CreateEventModal({ isModalOpen, setIsModalOpen, setEvents }) {
 
     // Hardcoding these tags here instead of the database in order to reduce the number of requests made
     // in order to not exceed firestore's daily quota :)
-    const mainTagsList = ["Afterwork", "Team day", "Education", "Knowledge sharing"]
+    const mainTagsList = ["Afterwork", "Team day", "Education", "Cultural sharing"]
 
     // Hooks
     const [eventDate, setEventDate] = useState("")
