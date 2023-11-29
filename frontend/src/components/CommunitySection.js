@@ -98,7 +98,6 @@ export function CommunitySection() {
                 console.error('Error fetching groups:', error)
             }
         }
-        console.log("useEffect")
         fetchGroups()
     }, [groupUpdated])
 

@@ -25,7 +25,7 @@ export default function TasksList() {
 
   const updateTaskStatus = async (taskId,isCompleted) => {
     try {
-      const docRef = doc(collection(db,"tasks"),taskId)
+      const docRef = doc(db,"tasks",taskId)
       await updateDoc(docRef, {isCompleted: isCompleted})
       setTasks(tasks => tasks.filter(task => task.id !== taskId))
 
@@ -42,8 +42,8 @@ export default function TasksList() {
   const filteredTasks = tasks.filter(task => JSON.stringify(task.name + task.eventName).toLowerCase().includes(filterText.toLowerCase()));
 
     // Task Card Component
-  const TaskCard = ({ task, updateTaskStatus }) => (
-    <table className='task-card'>
+  const TaskCard = ({ task, updateTaskStatus, index }) => (
+    <table className='task-card' key={index}>
       <td> {task.eventName}</td>
       <td> {task.name}</td>
       <td> {Intl.DateTimeFormat('en-US',{year: 'numeric', month: '2-digit',day: '2-digit'}).format(task.deadline)} </td>
@@ -95,8 +95,8 @@ export default function TasksList() {
       <th>Action</th>
       </table>
       <div className='task-list' >
-        {filteredTasks.map((task) => (
-          task.isCompleted || <TaskCard key={task.id} task={task} updateTaskStatus={updateTaskStatus} />
+        {filteredTasks.map((task, index) => (
+          task.isCompleted || <TaskCard key={task.id} task={task} updateTaskStatus={updateTaskStatus} index={index} />
         ))}
       </div>
       <NewTaskForm />
