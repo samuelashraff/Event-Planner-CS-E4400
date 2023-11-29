@@ -11,7 +11,7 @@ export default function TasksList() {
   useEffect(() => {
 
     const fetchTasks = async () => {
-      const tasksQuery = query(collection(db, "tasks"), where("userRef", "==", auth.currentUser.uid), limit(8))
+      const tasksQuery = query(collection(db, "tasks"), where("uid", "==", auth.currentUser.uid), limit(8))
       const tasksSnapShot = await getDocs(tasksQuery)
       const tasksData = tasksSnapShot.docs.map((doc) => ({
         id: doc.id,
@@ -56,7 +56,7 @@ export default function TasksList() {
     const [eventName, setEventName] = useState('');
     const [name, setName] = useState('');
     const [deadline, setDeadline] = useState('');
-
+    
     const createTask = async (e) => {
       e.preventDefault();
       try {
@@ -64,7 +64,7 @@ export default function TasksList() {
                           eventName: eventName,
                           eventId: null,
                           name: name,
-                          userRef: auth.currentUser.uid,
+                          uid: auth.currentUser.uid,
                           isCompleted: false
                         };
         const docRef = await addDoc(collection(db, "tasks"), newTask )

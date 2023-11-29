@@ -70,7 +70,6 @@ export function CreateEventModal({ isModalOpen, setIsModalOpen, setEvents }) {
 
             // Get the ID of the created event
             const eventId = eventDocRef.id;
-            const eventName = eventDocRef.name;
 
             // Create tasks and associate them with the event
             for (const venue of selectedVenues) {
@@ -83,9 +82,9 @@ export function CreateEventModal({ isModalOpen, setIsModalOpen, setEvents }) {
                     name: taskName,
                     deadline: taskDeadline,
                     isCompleted: taskStatus,
-                    eventId: eventId, // Store the event ID in the task document
-                    eventName: eventName,
-                    userRef: userRef //TO CHECK in review: Needs to be userId
+                    eventId: eventDocRef.id, // Store the event ID in the task document
+                    eventName: eventDocRef.name,
+                    uid: userRef.id //TO CHECK in review: Needs to be userId
                 });
             }
 
