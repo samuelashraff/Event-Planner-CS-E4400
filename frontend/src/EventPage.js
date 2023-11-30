@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Card, CardContent } from '@mui/material';
 import { collection, doc, getDoc, updateDoc, deleteDoc } from 'firebase/firestore';
-import { db } from './firebase';
+import { auth, db } from './firebase';
 import { Navigate, redirect, useParams } from 'react-router-dom';
 import "./styles/EventPage.css"
 import Navbar from './components/NavBar';
+import { useAuthState } from 'react-firebase-hooks/auth';
 
 function EditEventDetails({ setIsEditMode, editedEvent, setEditedEvent, handleUpdate }) {
 
@@ -40,6 +41,7 @@ function EditEventDetails({ setIsEditMode, editedEvent, setEditedEvent, handleUp
 
 export function EventPage() {
     const { id } = useParams()
+    const [user] = useAuthState(auth)
     const [isEditMode, setIsEditMode] = useState(false)
     const [event, setEvent] = useState(null)
     const [venues, setVenues] = useState([])
@@ -115,6 +117,10 @@ export function EventPage() {
     }
 
     if (isDeleted) {
+        return <Navigate to="/" />
+    }
+
+    if (!user) {
         return <Navigate to="/" />
     }
 
