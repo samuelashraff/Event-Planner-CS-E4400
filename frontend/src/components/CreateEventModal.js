@@ -183,7 +183,6 @@ export function CreateEventModal({ isModalOpen, setIsModalOpen, setEvents }) {
                 )}
                 {selectedVenues.length >= 1 ? (
                     <div className="submit-form">
-                        <p>TODO: Add event to group dropdown</p>
                         <button className="close-modal-button" onClick={onEventSubmit}>Book Event</button>
                         <p style={{ marginLeft: "2%" }}>Or try again later</p>
                         <button className="close-modal-button" onClick={() => setIsModalOpen(false)}>Close window</button>
